@@ -2,7 +2,6 @@
 # the cloned repo, then:   cp .env.example .env  &&  docker compose up -d --build
 services:
   dusklight:
-    build: .
     image: dusklight:latest
     container_name: dusklight
     restart: unless-stopped
