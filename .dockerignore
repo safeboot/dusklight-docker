@@ -1,0 +1,13 @@
+.git
+.github
+node_modules
+data
+cache
+.env
+*.log
+*.png
+!public/**
+start-flight.ps1
+Dockerfile
+docker-compose.yml
+.dockerignore

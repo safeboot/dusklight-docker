@@ -1,0 +1,24 @@
+# Place this file (plus Dockerfile, .dockerignore, .env.example) in the root of
+# the cloned repo, then:   cp .env.example .env  &&  docker compose up -d --build
+services:
+  dusklight:
+    build: .
+    image: dusklight:latest
+    container_name: dusklight
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      # Local-only by default. To let others connect, change to "8080:8080"
+      # and "9339:9339" and set AJ_PUBLIC_URL in .env (see LOCAL_SETUP.md step 10).
+      - "127.0.0.1:${AJ_HTTP_PORT:-8080}:8080"
+      - "127.0.0.1:${AJ_GAME_PORT:-9339}:9339"
+    volumes:
+      - "${DUSKLIGHT_DATA_PATH}:/data"
+      - "${DUSKLIGHT_CACHE_PATH}:/app/cache"
+
+    # --- Linux only: use this INSTEAD of "ports:" if the admin panel refuses you ---
+    # The admin panel only answers from the local machine; behind Docker's NAT the
+    # server sees the bridge gateway IP rather than 127.0.0.1. Host networking
+    # avoids that. (Then set AJ_BIND=127.0.0.1 in .env.)
+    # network_mode: host
