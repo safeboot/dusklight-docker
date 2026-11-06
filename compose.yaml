@@ -10,8 +10,8 @@ services:
     ports:
       # Local-only by default. To let others connect, change to "8080:8080"
       # and "9339:9339" and set AJ_PUBLIC_URL in .env (see LOCAL_SETUP.md step 10).
-      - "127.0.0.1:${AJ_HTTP_PORT:-8080}:8080"
-      - "127.0.0.1:${AJ_GAME_PORT:-9339}:9339"
+      - "${AJ_HTTP_PORT:-8080}:8080"
+      - "${AJ_GAME_PORT:-9339}:9339"
     volumes:
       - "${DUSKLIGHT_DATA_PATH}:/data"
       - "${DUSKLIGHT_CACHE_PATH}:/app/cache"
